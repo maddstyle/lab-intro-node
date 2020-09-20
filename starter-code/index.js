@@ -3,46 +3,59 @@ class SortedList {
     this.items = [];
     this.length = this.items.length;
   }
+
   add(item) {
     this.items.push(item);
-    this.length = this.items.length;
-    return this.items.sort((a, b) => a - b);
+    this.items.sort((a, b) => {
+      return a - b;
+    });
+    this.length++;
   }
 
   get(pos) {
-    if (!this.items[pos]) {
+    let value = this.items[pos];
+    if (value === undefined) {
       throw new Error("OutOfBounds");
+    } else {
+      return value;
     }
-    return this.items[pos];
   }
+
   max() {
+    let highestValue = Math.max(...this.items);
     if (this.length === 0) {
       throw new Error("EmptySortedList");
+    } else {
+      return highestValue;
     }
-    //1.
-    return Math.max(...this.items);
-    // let maxNumber = Math.max(1,3,4,5,67);
+  }
 
-    min() {
-      if (this.length === 0) {
-        throw new Error("EmptySortedList");
-      }
-      //1.
-      return Math.min(...this.items);
+  min() {
+    let lowestValue = Math.min(...this.items);
+    if (this.length === 0) {
+      throw new Error("EmptySortedList");
+    } else {
+      return lowestValue;
     }
+  }
 
-    sum() {
-      if (this.length === 0) return 0;
-      return this.items.reduce((acc, val) => acc + val);
+  sum() {
+    if (this.length === 0) {
+      return 0;
+    } else {
+      return this.items.reduce((acc, currentvalue) => {
+        return acc + currentvalue;
+      }, 0);
     }
-  
+  }
 
-    avg() {
-      if (this.length === 0) {
-        throw new Error("EmptySortedList");
-      }
-      return this.sum() / this.length;
+  avg() {
+    if (this.length === 0) {
+      throw new Error("EmptySortedList");
+    } else {
+      return (this.sum() / this.length).toFixed(2);
     }
-  
+  }
+}
 
 module.exports = SortedList;
